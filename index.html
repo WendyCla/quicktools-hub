@@ -3,178 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QuickTools Hub - All Tools in One Place</title>
+<title>QuickTools Hub V2.1 - Real PDF to Word</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
 <style>
-:root{
- --bg:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;
- --primary:#6366f1;--primary2:#8b5cf6;--shadow:0 4px 20px rgba(0,0,0,.06);
-}
-.dark{
- --bg:#0b1220;--card:#111b2e;--text:#e2e8f0;--muted:#94a3b8;--border:#1e293b;
- --shadow:0 10px 30px rgba(0,0,0,.3);
-}
+:root{ --bg:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--primary:#6366f1;--primary2:#8b5cf6;--shadow:0 4px 20px rgba(0,0,0,.06);}
+.dark{ --bg:#0b1220;--card:#111b2e;--text:#e2e8f0;--muted:#94a3b8;--border:#1e293b;--shadow:0 10px 30px rgba(0,0,0,.3);}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Inter,system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
-header{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--border);backdrop-filter:blur(10px)}
-.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
+header{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--border)}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px;flex-wrap:wrap}
 .logo{font-weight:800;font-size:22px;background:linear-gradient(90deg,var(--primary),var(--primary2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .search-box{flex:1;max-width:420px;position:relative}
 .search-box input{width:100%;padding:12px 14px 12px 40px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);outline:none}
 .search-box span{position:absolute;left:12px;top:50%;transform:translateY(-50%)}
-.controls{display:flex;gap:8px}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
-.btn-primary{background:linear-gradient(90deg,var(--primary),var(--primary2));color:#fff;border:none;font-weight:600}
+.btn{padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;font-weight:600}
+.btn-primary{background:linear-gradient(90deg,var(--primary),var(--primary2));color:#fff;border:none}
 main{max-width:1200px;margin:auto;padding:20px}
-.hero{text-align:center;padding:30px 10px}
-.hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1}
-.hero p{color:var(--muted);margin:12px auto;max-width:600px}
-.categories{display:flex;gap:8px;overflow:auto;padding:10px 2px 18px;scrollbar-width:none}
-.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:14px}
-.chip.active{background:var(--text);color:var(--bg);border-color:var(--text)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
-.tool-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow);transition:.2s;display:flex;flex-direction:column}
-.tool-card:hover{transform:translateY(-3px)}
+.hero{text-align:center;padding:20px 10px}
+.hero h1{font-size:clamp(26px,5vw,42px)}
+.hero p{color:var(--muted);margin:10px auto;max-width:600px}
+.categories{display:flex;gap:8px;overflow:auto;padding:10px 2px 18px}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:13px}
+.chip.active{background:var(--text);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column}
 .tool-top{display:flex;gap:12px;align-items:center;margin-bottom:10px}
 .icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:var(--bg);border:1px solid var(--border)}
 .tool-card h3{font-size:16px}
-.tool-card p{font-size:13px;color:var(--muted);margin:6px 0 12px;min-height:34px}
+.tool-card p{font-size:13px;color:var(--muted);margin:6px 0 12px}
 .tool-body{border-top:1px dashed var(--border);padding-top:12px;margin-top:auto}
 .tool-body label{font-size:12px;color:var(--muted);display:block;margin:8px 0 4px}
 .tool-body input,.tool-body select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);outline:none}
-.row{display:flex;gap:8px}
-.row > *{flex:1}
-.result{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);font-weight:600;font-size:14px}
-.small{font-size:12px;color:var(--muted);font-weight:400}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.result{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);font-size:14px;font-weight:600;white-space:pre-wrap}
+.tab-btns{display:flex;gap:6px;margin-bottom:10px}
+.tab-btn{flex:1;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:12px}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.hidden{display:none!important}
 .qr-img{width:100%;max-width:180px;display:block;margin:12px auto;border-radius:12px;border:1px solid var(--border);padding:8px;background:#fff}
 footer{text-align:center;padding:40px 10px;color:var(--muted);font-size:13px}
-.hidden{display:none!important}
-@media(max-width:640px){.nav{flex-wrap:wrap}.search-box{order:3;max-width:100%}}
 </style>
 </head>
 <body>
 <header>
 <div class="nav">
-<div class="logo">⚡ QuickTools Hub</div>
-<div class="search-box"><span>🔎</span><input id="search" placeholder="Search tools, e.g. BMI, QR, Loan..."></div>
-<div class="controls">
-<button class="btn" id="themeBtn">🌙</button>
-<button class="btn btn-primary" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">Explore</button>
-</div>
+<div class="logo">⚡ QuickTools Hub V2.1</div>
+<div class="search-box"><span>🔎</span><input id="search" placeholder="Search BMI, QR, PDF to Word..."></div>
+<div><button class="btn" id="themeBtn">🌙</button> <button class="btn btn-primary" onclick="document.getElementById('grid').scrollIntoView({behavior:'smooth'})">Tools</button></div>
 </div>
 </header>
 <main>
-<div class="hero">
-<h1>All your daily tools, <br>in one fast hub.</h1>
-<p>Calculators, converters, generators & file tools. Works offline, mobile-friendly, no signup.</p>
-</div>
+<div class="hero"><h1>All tools working - Including REAL PDF to Word</h1><p>Fixed V2.1 - Now downloads .docx not .txt. Mobile-friendly, offline calculators.</p></div>
 <div class="categories" id="cats">
 <button class="chip active" data-cat="all">All</button>
 <button class="chip" data-cat="calculators">🧮 Calculators</button>
-<button class="chip" data-cat="converters">💱 Converters</button>
+<button class="chip" data-cat="files">📄 PDF Tools</button>
 <button class="chip" data-cat="generators">⚙️ Generators</button>
-<button class="chip" data-cat="text">✍️ Text</button>
-<button class="chip" data-cat="files">📄 PDF & Image</button>
+<button class="chip" data-cat="converters">💱 Converters</button>
 </div>
 <div class="grid" id="grid">
-<div class="tool-card" data-cat="calculators" data-key="age calculator birthday">
-<div class="tool-top"><div class="icon">🎂</div><div><h3>Age Calculator</h3><p>Calculate exact age in years, months, days.</p></div></div>
+
+<!-- AGE -->
+<div class="tool-card" data-cat="calculators" data-key="age calculator">
+<div class="tool-top"><div class="icon">🎂</div><div><h3>Age Calculator</h3><p>Exact age years months days</p></div></div>
+<div class="tool-body"><input type="date" id="birth"><div class="result" id="ageRes">Select birth date</div></div>
+</div>
+
+<!-- PERCENTAGE -->
+<div class="tool-card" data-cat="calculators" data-key="percentage">
+<div class="tool-top"><div class="icon">%</div><div><h3>Percentage</h3><p>X% of Y</p></div></div>
+<div class="tool-body"><div class="row"><input type="number" id="p1" placeholder="20"><input type="number" id="p2" placeholder="150"></div><div class="result" id="percRes">0</div></div>
+</div>
+
+<!-- BMI -->
+<div class="tool-card" data-cat="calculators" data-key="bmi">
+<div class="tool-top"><div class="icon">⚖️</div><div><h3>BMI</h3><p>Body mass index</p></div></div>
+<div class="tool-body"><div class="row"><input type="number" id="bmiH" placeholder="Height cm"><input type="number" id="bmiW" placeholder="Weight kg"></div><div class="result" id="bmiRes">Enter details</div></div>
+</div>
+
+<!-- DISCOUNT -->
+<div class="tool-card" data-cat="calculators" data-key="discount">
+<div class="tool-top"><div class="icon">🏷️</div><div><h3>Discount</h3><p>Sale price</p></div></div>
+<div class="tool-body"><div class="row"><input type="number" id="discPrice" placeholder="Price"><input type="number" id="discPerc" placeholder="Discount %"></div><div class="result" id="discRes">Result</div></div>
+</div>
+
+<!-- LOAN -->
+<div class="tool-card" data-cat="calculators" data-key="loan">
+<div class="tool-top"><div class="icon">🏦</div><div><h3>Loan</h3><p>EMI Calculator</p></div></div>
+<div class="tool-body"><div class="row"><input type="number" id="loanA" placeholder="10000"><input type="number" id="loanI" placeholder="10%"><input type="number" id="loanY" placeholder="2y"></div><div class="result" id="loanRes">Enter loan</div></div>
+</div>
+
+<!-- PDF TO WORD - REAL FIX -->
+<div class="tool-card" data-cat="files" data-key="pdf to word docx converter real">
+<div class="tool-top"><div class="icon">📝</div><div><h3>PDF to Word - REAL .docx</h3><p>Fixed! Converts to real Word file, not txt.</p></div></div>
 <div class="tool-body">
-<label>Your Birth Date</label><input type="date" id="birth">
-<div class="result" id="ageRes">Select your birth date</div>
+<div class="tab-btns"><button class="tab-btn active" onclick="switchTab(this,'pdfword')">PDF to Word</button><button class="tab-btn" onclick="switchTab(this,'imgcomp')">Image Compress</button></div>
+<div id="pdfwordTab">
+<input type="file" id="pdfFile" accept="application/pdf">
+<button class="btn btn-primary" style="width:100%;margin-top:8px" id="pdfToWordBtn">Convert to Word (.docx)</button>
+<div class="result" id="pdfRes">Upload a PDF like Cover Letter.pdf (0.06 MB) to convert to real Word file</div>
+<a id="downloadDocx" class="btn btn-primary hidden" style="display:block;text-align:center;margin-top:8px;text-decoration:none">📥 Download Word File</a>
 </div>
-</div>
-<div class="tool-card" data-cat="calculators" data-key="percentage calculator">
-<div class="tool-top"><div class="icon">%</div><div><h3>Percentage Calculator</h3><p>Find X% of Y</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="p1" placeholder="What is 20%"><input type="number" id="p2" placeholder="of 150"></div>
-<div class="result" id="percRes">0</div>
-</div>
-</div>
-<div class="tool-card" data-cat="calculators" data-key="bmi body mass index weight">
-<div class="tool-top"><div class="icon">⚖️</div><div><h3>BMI Calculator</h3><p>Check your body mass index.</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="bmiH" placeholder="Height cm"><input type="number" id="bmiW" placeholder="Weight kg"></div>
-<div class="result" id="bmiRes">Enter height & weight</div>
-</div>
-</div>
-<div class="tool-card" data-cat="calculators" data-key="discount sale price">
-<div class="tool-top"><div class="icon">🏷️</div><div><h3>Discount Calculator</h3><p>Find sale price after discount.</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="discPrice" placeholder="Price"><input type="number" id="discPerc" placeholder="Discount %"></div>
-<div class="result" id="discRes">Final price will appear here</div>
-</div>
-</div>
-<div class="tool-card" data-cat="calculators" data-key="loan emi interest mortgage">
-<div class="tool-top"><div class="icon">🏦</div><div><h3>Loan Calculator</h3><p>Monthly payment, total interest.</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="loanA" placeholder="10000"><input type="number" id="loanI" placeholder="10%"><input type="number" id="loanY" placeholder="2y"></div>
-<div class="result" id="loanRes">Enter loan details</div>
-</div>
-</div>
-<div class="tool-card" data-cat="converters" data-key="currency converter usd kes eur">
-<div class="tool-top"><div class="icon">💱</div><div><h3>Currency Converter</h3><p>Quick interface - live rates ready.</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="curAmt" value="1"><select id="curFrom"><option>USD</option><option>KES</option><option>EUR</option><option>GBP</option></select></div>
-<div class="row" style="margin-top:8px"><input type="text" id="curToAmt" readonly><select id="curTo"><option>KES</option><option>USD</option><option>EUR</option></select></div>
-<div class="result" id="curRes">1 USD = 129 KES</div>
-</div>
-</div>
-<div class="tool-card" data-cat="generators" data-key="qr code generator">
-<div class="tool-top"><div class="icon">📱</div><div><h3>QR Code Generator</h3><p>Create QR for link, text.</p></div></div>
-<div class="tool-body">
-<input type="text" id="qrText" placeholder="https://your-link.com">
-<button class="btn btn-primary" style="width:100%;margin-top:8px" id="qrBtn">Generate QR</button>
-<img id="qrImg" class="qr-img hidden">
-<div class="result" id="qrRes">Your QR will appear here</div>
-</div>
-</div>
-<div class="tool-card" data-cat="generators" data-key="password generator secure">
-<div class="tool-top"><div class="icon">🔐</div><div><h3>Password Generator</h3><p>Strong random passwords.</p></div></div>
-<div class="tool-body">
-<div class="row"><input type="number" id="passLen" value="16"><select id="passType"><option value="all">All chars</option><option value="letters">Letters+Numbers</option></select></div>
-<button class="btn btn-primary" style="width:100%;margin-top:8px" id="passBtn">Generate</button>
-<div class="result" id="passRes">Click generate</div>
-</div>
-</div>
-<div class="tool-card" data-cat="text" data-key="word character counter text">
-<div class="tool-top"><div class="icon">✍️</div><div><h3>Word & Character Counter</h3><p>Count words, characters, sentences.</p></div></div>
-<div class="tool-body">
-<input type="text" id="wordInput" placeholder="Type or paste text...">
-<div class="result" id="wordRes">0 words, 0 characters</div>
-</div>
-</div>
-<div class="tool-card" data-cat="files" data-key="pdf image tools compress resize">
-<div class="tool-top"><div class="icon">📄</div><div><h3>PDF & Image Tools</h3><p>Compress image, check file info.</p></div></div>
-<div class="tool-body">
-<input type="file" id="fileIn" accept="image/*,application/pdf">
-<div class="result" id="fileRes">Upload image to compress</div>
+<div id="imgcompTab" class="hidden">
+<input type="file" id="imgFile" accept="image/*">
+<div class="result" id="imgRes">Upload image to compress</div>
+<a id="downloadImg" class="btn btn-primary hidden" style="display:block;text-align:center;margin-top:8px;text-decoration:none">Download Compressed</a>
 <canvas id="canvas" class="hidden"></canvas>
-<div id="fileActions" class="hidden"><a id="downloadImg" class="btn btn-primary" style="display:block;text-align:center;margin-top:8px;text-decoration:none">Download Compressed</a></div>
 </div>
 </div>
+</div>
+
+<!-- QR -->
+<div class="tool-card" data-cat="generators" data-key="qr code">
+<div class="tool-top"><div class="icon">📱</div><div><h3>QR Generator</h3><p>Create QR</p></div></div>
+<div class="tool-body"><input type="text" id="qrText" placeholder="https://"><button class="btn btn-primary" style="width:100%;margin-top:8px" id="qrBtn">Generate</button><img id="qrImg" class="qr-img hidden"><div class="result" id="qrRes">QR here</div></div>
+</div>
+
+<!-- PASSWORD -->
+<div class="tool-card" data-cat="generators" data-key="password">
+<div class="tool-top"><div class="icon">🔐</div><div><h3>Password Generator</h3><p>Secure</p></div></div>
+<div class="tool-body"><div class="row"><input type="number" id="passLen" value="16"><select id="passType"><option value="all">All chars</option><option value="letters">Letters+Num</option></select></div><button class="btn btn-primary" style="width:100%;margin-top:8px" id="passBtn">Generate</button><div class="result" id="passRes">Click generate</div></div>
+</div>
+
+<!-- WORD COUNTER -->
+<div class="tool-card" data-cat="converters" data-key="word counter currency">
+<div class="tool-top"><div class="icon">✍️</div><div><h3>Word Counter + Currency</h3><p>Text tools</p></div></div>
+<div class="tool-body"><input type="text" id="wordInput" placeholder="Type text..."><div class="result" id="wordRes">0 words</div><hr style="margin:12px 0;border:none;border-top:1px dashed var(--border)"><div class="row"><input type="number" id="curAmt" value="1"><select id="curFrom"><option>USD</option><option>KES</option></select><select id="curTo"><option>KES</option><option>USD</option></select></div><div class="result" id="curRes">1 USD = 129 KES</div></div>
+</div>
+
 </div>
 </main>
-<footer>Made with ❤️ by WendyCla • V2 • GitHub Pages</footer>
+<footer>QuickTools Hub V2.1 FIXED • Real PDF to Word • Made by WendyCla</footer>
 <script>
-const themeBtn=document.getElementById('themeBtn');
-if(localStorage.theme==='dark'){document.body.classList.add('dark');themeBtn.textContent='☀️'}
+// Theme + Filter
+const themeBtn=document.getElementById('themeBtn'); if(localStorage.theme==='dark'){document.body.classList.add('dark');themeBtn.textContent='☀️'}
 themeBtn.onclick=()=>{document.body.classList.toggle('dark');const d=document.body.classList.contains('dark');localStorage.theme=d?'dark':'light';themeBtn.textContent=d?'☀️':'🌙'}
-const search=document.getElementById('search'),cards=[...document.querySelectorAll('.tool-card')],chips=[...document.querySelectorAll('.chip')];
-let activeCat='all';
+const search=document.getElementById('search'),cards=[...document.querySelectorAll('.tool-card')],chips=[...document.querySelectorAll('.chip')]; let activeCat='all';
 function filter(){const q=search.value.toLowerCase();cards.forEach(c=>{const matchCat=activeCat==='all'||c.dataset.cat===activeCat;const matchSearch=c.dataset.key.includes(q)||c.innerText.toLowerCase().includes(q);c.classList.toggle('hidden',!(matchCat&&matchSearch))})}
-search.oninput=filter;
-chips.forEach(ch=>ch.onclick=()=>{chips.forEach(x=>x.classList.remove('active'));ch.classList.add('active');activeCat=ch.dataset.cat;filter()})
-birth.oninput=()=>{if(!birth.value)return;const b=new Date(birth.value),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}ageRes.textContent=`${y} years, ${m} months, ${d} days` }
-function calcPerc(){const a=parseFloat(p1.value),b=parseFloat(p2.value);if(!isNaN(a)&&!isNaN(b))percRes.textContent=`${a}% of ${b} = ${(a/100*b).toFixed(2)}`; } p1.oninput=calcPerc; p2.oninput=calcPerc;
-function calcBmi(){const h=parseFloat(bmiH.value)/100,w=parseFloat(bmiW.value);if(h>0&&w>0){const bmi=w/(h*h);let s=bmi<18.5?'Underweight':bmi<25?'Normal':bmi<30?'Overweight':'Obese';bmiRes.textContent=`BMI: ${bmi.toFixed(1)} - ${s}`}} bmiH.oninput=calcBmi; bmiW.oninput=calcBmi;
-function calcDisc(){const pr=parseFloat(discPrice.value),pe=parseFloat(discPerc.value);if(!isNaN(pr)&&!isNaN(pe)){const save=pr*pe/100,final=pr-save;discRes.textContent=`Save $${save.toFixed(2)} - Pay $${final.toFixed(2)}`}} discPrice.oninput=calcDisc; discPerc.oninput=calcDisc;
-function calcLoan(){const A=parseFloat(loanA.value),I=parseFloat(loanI.value)/100/12,Y=parseFloat(loanY.value)*12;if(A&&I&&Y){const M=A*I*Math.pow(1+I,Y)/(Math.pow(1+I,Y)-1);loanRes.textContent=`Monthly: $${M.toFixed(2)} | Total: $${(M*Y).toFixed(2)}`}} loanA.oninput=calcLoan; loanI.oninput=calcLoan; loanY.oninput=calcLoan;
-const rates={USD:{KES:129,EUR:0.92,GBP:0.79,USD:1},KES:{USD:1/129,KES:1}};
-function calcCur(){const amt=parseFloat(curAmt.value)||0,from=curFrom.value,to=curTo.value;let rate=1;if(rates[from]&&rates[from][to])rate=rates[from][to];else rate=1;if(from!==to&&rate===1){if(from==='USD')rate={KES:129,EUR:0.92,GBP:0.79}[to]||1;else if(to==='USD')rate=1/({KES:129,EUR:0.92}[from]||1)}const res=amt*rate;curToAmt.value=res.toFixed(2);curRes.textContent=`${amt} ${from} = ${res.toFixed(2)} ${to}`} curAmt.oninput=calcCur; curFrom.onchange=calcCur; curTo.onchange=calcCur;
-qrBtn.onclick=()=>{const t=qrText.value.trim()||'https://wendycla.github.io/quicktools-hub';const url=`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(t)}`;qrImg.src=url;qrImg.classList.remove('hidden');qrRes.textContent=`QR for: ${t}`}
-passBtn.onclick=()=>{const len=parseInt(passLen.value)||12;let chars='';const type=passType.value;if(type==='all')chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';else chars='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';let p='';for(let i=0;i<len;i++)p+=chars[Math.floor(Math.random()*chars.length)];passRes.textContent=p}
-wordInput.oninput=()=>{const t=wordInput.value;const w=t.trim()?t.trim().split(/\s+/).length:0;const c=t.length;wordRes.textContent=`${w} words, ${c} characters`}
-fileIn.onchange=(e)=>{const f=e.target.files[0];if(!f)return;if(f.type.startsWith('image/')){const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.getElementById('canvas');const maxW=1000;c.width=img.width>maxW?maxW:img.width;c.height=img.height*(c.width/img.width);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>{const url=URL.createObjectURL(b);downloadImg.href=url;downloadImg.download='compressed-'+f.name;document.getElementById('fileActions').classList.remove('hidden');fileRes.textContent=`Original: ${(f.size/1024).toFixed(1)}KB → Compressed: ${(b.size/1024).toFixed(1)}KB`},'image/jpeg',0.6)};img.src=ev.target.result};reader.readAsDataURL(f)}else{fileRes.textContent=`PDF: ${f.name} - ${(f.size/1024).toFixed(1)}KB`}}
+search.oninput=filter; chips.forEach(ch=>ch.onclick=()=>{chips.forEach(x=>x.classList.remove('active'));ch.classList.add('active');activeCat=ch.dataset.cat;filter()})
+function switchTab(btn,id){btn.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('pdfwordTab').classList.toggle('hidden',id!=='pdfword');document.getElementById('imgcompTab').classList.toggle('hidden',id!=='imgcomp');}
+
+// Calculators (same as before)
+birth.oninput=()=>{if(!birth.value)return;const b=new Date(birth.value),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}ageRes.textContent=`${y} y, ${m} m, ${d} d` }
+p1.oninput=p2.oninput=()=>{const a=parseFloat(p1.value),b=parseFloat(p2.value);if(!isNaN(a)&&!isNaN(b))percRes.textContent=`${a}% of ${b} = ${(a/100*b).toFixed(2)}`};
+bmiH.oninput=bmiW.oninput=()=>{const h=parseFloat(bmiH.value)/100,w=parseFloat(bmiW.value);if(h>0&&w>0){const bmi=w/(h*h);let s=bmi<18.5?'Underweight':bmi<25?'Normal':bmi<30?'Overweight':'Obese';bmiRes.textContent=`BMI: ${bmi.toFixed(1)} - ${s}`}};
+discPrice.oninput=discPerc.oninput=()=>{const pr=parseFloat(discPrice.value),pe=parseFloat(discPerc.value);if(!isNaN(pr)&&!isNaN(pe)){const save=pr*pe/100;discRes.textContent=`Save $${save.toFixed(2)} - Pay $${(pr-save).toFixed(2)}`}};
+loanA.oninput=loanI.oninput=loanY.oninput=()=>{const A=parseFloat(loanA.value),I=parseFloat(loanI.value)/100/12,Y=parseFloat(loanY.value)*12;if(A&&I&&Y){const M=A*I*Math.pow(1+I,Y)/(Math.pow(1+I,Y)-1);loanRes.textContent=`Monthly $${M.toFixed(2)} Total $${(M*Y).toFixed(2)}`}};
+function calcCur(){const amt=parseFloat(curAmt.value)||0;let rate=curFrom.value==='USD'&&curTo.value==='KES'?129:curFrom.value==='KES'&&curTo.value==='USD'?1/129:1;curRes.textContent=`${amt} ${curFrom.value} = ${(amt*rate).toFixed(2)} ${curTo.value}` } curAmt.oninput=curFrom.onchange=curTo.onchange=calcCur;
+qrBtn.onclick=()=>{const t=qrText.value.trim()||'https://wendycla.github.io/quicktools-hub';const url=`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(t)}`;qrImg.src=url;qrImg.classList.remove('hidden');qrRes.textContent=`QR for: ${t}`};
+passBtn.onclick=()=>{const len=parseInt(passLen.value)||12;let chars=passType.value==='all'?'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*':'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';let p='';for(let i=0;i<len;i++)p+=chars[Math.floor(Math.random()*chars.length)];passRes.textContent=p};
+wordInput.oninput=()=>{const t=wordInput.value;const w=t.trim()?t.trim().split(/\s+/).length:0;wordRes.textContent=`${w} words, ${t.length} chars`};
+
+// REAL PDF TO WORD LOGIC - THE FIX
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let pdfFileSelected=null;
+pdfFile.onchange=(e)=>{pdfFileSelected=e.target.files[0];if(pdfFileSelected)pdfRes.textContent=`Ready: ${pdfFileSelected.name} - ${(pdfFileSelected.size/1024).toFixed(1)}KB - Click Convert`;};
+
+pdfToWordBtn.onclick=async()=>{
+ if(!pdfFileSelected){pdfRes.textContent='Please select a PDF first!';return;}
+ pdfRes.textContent='⏳ Reading PDF... Please wait...';
+ try{
+  const arrayBuffer=await pdfFileSelected.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:arrayBuffer}).promise;
+  pdfRes.textContent=`⏳ Extracting ${pdf.numPages} pages...`;
+  let fullText='';
+  for(let i=1;i<=pdf.numPages;i++){
+    const page=await pdf.getPage(i);
+    const content=await page.getTextContent();
+    const strings=content.items.map(item=>item.str);
+    fullText+=strings.join(' ')+'\n\n';
+  }
+  // Build REAL DOCX using docx library
+  const { Document, Packer, Paragraph } = docx;
+  const paragraphs=fullText.split('\n').map(line=> new Paragraph({text:line||' '}));
+  const doc=new Document({sections:[{properties:{},children:paragraphs}]});
+  const blob=await Packer.toBlob(doc);
+  const url=URL.createObjectURL(blob);
+  const dl=document.getElementById('downloadDocx');
+  dl.href=url;
+  dl.download=pdfFileSelected.name.replace(/\.pdf$/i,'')+'.docx';
+  dl.classList.remove('hidden');
+  pdfRes.textContent=`✅ Success! Extracted ${pdf.numPages} pages, ${fullText.length} characters.\nREAL .docx created - Download below. Opens in Microsoft Word.`;
+ }catch(err){
+  console.error(err);
+  pdfRes.textContent='❌ Error: '+err.message+'\nTry another PDF.';
+ }
+};
+
+// Image compress
+imgFile.onchange=(e)=>{const f=e.target.files[0];if(!f)return;const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.getElementById('canvas');const maxW=1000;c.width=img.width>maxW?maxW:img.width;c.height=img.height*(c.width/img.width);c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>{const url=URL.createObjectURL(b);downloadImg.href=url;downloadImg.download='compressed-'+f.name;downloadImg.classList.remove('hidden');imgRes.textContent=`Original ${(f.size/1024).toFixed(1)}KB → Compressed ${(b.size/1024).toFixed(1)}KB`},'image/jpeg',0.6)};img.src=ev.target.result};reader.readAsDataURL(f)};
 </script>
 </body>
 </html>
