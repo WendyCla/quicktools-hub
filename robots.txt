@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wendycla.github.io/quicktools-hub/sitemap.xml
