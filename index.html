@@ -1,53 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>QuickTools Hub - Owned by Winnie Mwangale</title>
-<meta name="author" content="Winnie Mwangale">
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-<style>
-body{margin:0;font-family:system-ui;background:#f8fafc}.header{background:#fff;padding:12px 16px;display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10}
-.logo{font-weight:800;font-size:20px}.logo span{color:#2563eb}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;padding:16px}
-.tool-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px}
-.tool-top{display:flex;gap:10px;margin-bottom:10px}
-.icon{width:40px;height:40px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-input,select,textarea{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px;margin:5px 0}
-.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.result{background:#f8fafc;border:1px dashed #cbd5e1;padding:8px;border-radius:8px;margin-top:8px;font-size:13px;white-space:pre-wrap;min-height:30px}
-.btn{padding:10px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
-.btn-primary{background:#2563eb;color:#fff;width:100%;margin-top:6px}
-.btn-sec{background:#e2e8f0;width:48%}
-.footer{text-align:center;padding:20px;font-size:11px;color:#64748b}
-</style>
-</head>
+<style>body{margin:0;font-family:system-ui;background:#f8fafc}.header{background:#fff;padding:12px 16px;display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:10}.logo{font-weight:800}.logo span{color:#2563eb}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;padding:16px}.tool-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px}.tool-top{display:flex;gap:10px;margin-bottom:10px}.icon{width:40px;height:40px;background:#f1f5f9;border-radius:10px;display:flex;align-items:center;justify-content:center}input,select,textarea{width:100%;padding:10px;border:1px solid #e5e7eb;border-radius:10px;margin:5px 0}.row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}.result{background:#f8fafc;border:1px dashed #cbd5e1;padding:8px;border-radius:8px;margin-top:8px;font-size:13px;white-space:pre-wrap;min-height:30px}.btn{padding:10px;border:none;border-radius:10px;font-weight:700;cursor:pointer}.btn-primary{background:#2563eb;color:#fff;width:100%;margin-top:6px}.btn-sec{background:#e2e8f0;width:48%}.footer{text-align:center;padding:20px;font-size:11px;color:#64748b}</style></head>
 <body>
 <div class="header"><div class="logo">🛠️ <span>QuickTools</span> Hub</div><div style="font-size:11px">by Winnie Mwangale</div></div>
 <div class="grid">
+<div class="tool-card"><div class="tool-top"><div class="icon">⚖️</div><div><b>BMI Calculator</b></div></div><input type="number" id="w" placeholder="Weight kg"><input type="number" id="h" placeholder="Height cm"><button class="btn btn-primary" onclick="const w=parseFloat(document.getElementById('w').value);const hh=parseFloat(document.getElementById('h').value)/100;document.getElementById('bmiRes').textContent=w&&hh?'BMI: '+(w/(hh*hh)).toFixed(1):'Enter values'">Calculate</button><div class="result" id="bmiRes">-</div></div>
 
-<div class="tool-card"><div class="tool-top"><div class="icon">⚖️</div><div><b>BMI Calculator</b><br><small>Health</small></div></div><input type="number" id="w" placeholder="Weight kg"><input type="number" id="h" placeholder="Height cm"><button class="btn btn-primary" onclick="const w=parseFloat(document.getElementById('w').value);const hh=parseFloat(document.getElementById('h').value)/100;document.getElementById('bmiRes').textContent=w&&hh?'BMI: '+(w/(hh*hh)).toFixed(1):'Enter values'">Calculate BMI</button><div class="result" id="bmiRes">-</div></div>
+<div class="tool-card" style="border:2px solid #2563eb"><div class="tool-top"><div class="icon">💱</div><div><b>LIVE Currency - Supports KES!</b></div></div><div class="row"><input type="number" id="curAmt" value="100"><select id="curFrom"><option value="USD" selected>USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="KES">KES</option><option value="ZAR">ZAR</option><option value="INR">INR</option></select><select id="curTo"><option value="KES" selected>KES</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div><button class="btn btn-primary" id="curConvertBtn">Convert Live</button><div class="result" id="curRes">Click Convert - live rate</div></div>
 
-<div class="tool-card"><div class="tool-top"><div class="icon">💱</div><div><b>LIVE Currency - Frankfurter API</b><br><small>ECB daily reference</small></div></div><div class="row"><input type="number" id="curAmt" value="100"><select id="curFrom"><option value="USD" selected>USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="KES">KES</option><option value="ZAR">ZAR</option><option value="INR">INR</option></select><select id="curTo"><option value="KES" selected>KES</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option><option value="ZAR">ZAR</option></select></div><button class="btn btn-primary" id="curConvertBtn">Convert Live</button><div class="result" id="curRes">Click Convert to fetch real rate</div><div style="font-size:10px;color:#64748b">Uses frankfurter.app (ECB) + backup for KES</div></div>
-
-<div class="tool-card" style="border:2px solid #2563eb"><div class="tool-top"><div class="icon">👁️</div><div><b>Free OCR Tool - Upgraded V3.2</b><br><small>Image → Text + Copy + Download</small></div></div><input type="file" id="ocrFile" accept="image/*"><select id="ocrLang"><option value="eng">English</option><option value="swa">Swahili</option><option value="fra">French</option></select><img id="ocrPreview" style="max-width:100%;display:none;border-radius:8px;margin-top:6px"><button class="btn btn-primary" id="ocrBtn">📷 Extract Text</button><div class="result" id="ocrStatus">Ready - upload image</div><textarea id="ocrResult" style="min-height:120px" placeholder="Text will appear here..."></textarea><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-sec" onclick="document.getElementById('ocrResult').select();document.execCommand('copy');document.getElementById('ocrStatus').textContent='Copied!'">📋 Copy</button><button class="btn btn-sec" onclick="const t=document.getElementById('ocrResult').value;if(!t)return;const b=new Blob([t],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ocr.txt';a.click()">⬇️ Download</button></div></div>
+<div class="tool-card" style="border:2px solid #10b981"><div class="tool-top"><div class="icon">👁️</div><div><b>Free OCR Tool V3.3</b><br><small>Image → Text + Copy + Download</small></div></div><input type="file" id="ocrFile" accept="image/*"><select id="ocrLang"><option value="eng">English</option><option value="swa">Swahili</option><option value="fra">French</option></select><img id="ocrPreview" style="max-width:100%;display:none;border-radius:8px;margin-top:6px"><button class="btn btn-primary" id="ocrBtn">📷 Extract Text</button><div class="result" id="ocrStatus">Ready</div><textarea id="ocrResult" style="min-height:120px" placeholder="Text appears here..."></textarea><div style="display:flex;gap:6px;margin-top:6px"><button class="btn btn-sec" onclick="document.getElementById('ocrResult').select();document.execCommand('copy');document.getElementById('ocrStatus').textContent='📋 Copied!'">📋 Copy</button><button class="btn btn-sec" onclick="const t=document.getElementById('ocrResult').value;if(!t)return;const b=new Blob([t],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='ocr.txt';a.click()">⬇️ Download</button></div></div>
 
 <div class="tool-card"><div class="tool-top"><div class="icon">✍️</div><div><b>Word Counter</b></div></div><input type="text" id="wordInput" placeholder="Type text..."><div class="result" id="wordRes">0 words</div></div>
-
-<div class="tool-card"><div class="tool-top"><div class="icon">📄</div><div><b>PDF to Text</b></div></div><input type="file" id="pdfFile" accept="application/pdf"><div class="result" id="pdfRes">For scanned PDFs use OCR tool above - it's better</div></div>
-
 </div>
-<div class="footer">QuickTools Hub © 2026 - Owned & Developed by Winnie Mwangale (WendyCla) - Kenya<br>V3.2 Clickable Fixed</div>
+<div class="footer">QuickTools Hub © 2026 - Owned by Winnie Mwangale (WendyCla) - V3.3 Fixed KES</div>
 <script>
-document.getElementById('wordInput').oninput=()=>{const t=document.getElementById('wordInput').value.trim();document.getElementById('wordRes').textContent=t?`${t.split(/\s+/).length} words, ${t.length} chars`:'0 words'};
+document.getElementById('wordInput').oninput=()=>{const t=document.getElementById('wordInput').value.trim();document.getElementById('wordRes').textContent=t?`${t.split(/\s+/).length} words`:'0 words'};
 
-// LIVE CURRENCY
-const frankfurterList=["EUR","USD","GBP","JPY","AUD","CAD","CHF","CNY","SEK","NZD","ZAR","INR","BRL","MXN","SGD","HKD","NOK","KRW","TRY","PLN","DKK","THB","IDR","HUF","CZK","ILS","PHP","MYR","RON","ISK"];
-document.getElementById('curConvertBtn').onclick=async()=>{const amt=parseFloat(document.getElementById('curAmt').value);const from=document.getElementById('curFrom').value;const to=document.getElementById('curTo').value;const res=document.getElementById('curRes');if(!amt)return res.textContent='Enter amount';if(from===to)return res.textContent=`${amt} ${from} = ${amt} ${to}`;res.textContent='⏳ Fetching...';try{if(frankfurterList.includes(from)&&frankfurterList.includes(to)){const r=await fetch(`https://api.frankfurter.app/latest?amount=${amt}&from=${from}&to=${to}`);const d=await r.json();res.textContent=`${amt} ${from} = ${d.rates[to].toFixed(2)} ${to}\nDate: ${d.date} (ECB)`}else{const r2=await fetch(`https://api.exchangerate.host/convert?from=${from}&to=${to}&amount=${amt}`);const d2=await r2.json();res.textContent=`${amt} ${from} = ${d2.result.toFixed(2)} ${to}\nVia backup (supports KES)`}}catch(e){res.textContent='❌ Error: '+e.message}};
+// FIXED CURRENCY - KES SUPPORTED
+document.getElementById('curConvertBtn').onclick=async()=>{
+ const amt=parseFloat(document.getElementById('curAmt').value);
+ const from=document.getElementById('curFrom').value;
+ const to=document.getElementById('curTo').value;
+ const res=document.getElementById('curRes');
+ if(!amt)return res.textContent='Enter amount';
+ if(from===to)return res.textContent=`${amt} ${from} = ${amt} ${to}`;
+ res.textContent='⏳ Fetching live rate...';
+ try{
+   const r=await fetch(`https://open.er-api.com/v6/latest/${from}`);
+   const d=await r.json();
+   const rate=d.rates[to];
+   const converted=amt*rate;
+   res.textContent=`${amt} ${from} = ${converted.toFixed(2)} ${to}\nRate: 1 ${from} = ${rate.toFixed(4)} ${to}\n${d.time_last_update_utc}`;
+ }catch(e){
+   res.textContent='❌ Error, check internet. '+e.message;
+ }
+};
 
 // OCR
 const ocrFile=document.getElementById('ocrFile');const ocrPreview=document.getElementById('ocrPreview');const ocrStatus=document.getElementById('ocrStatus');const ocrResult=document.getElementById('ocrResult');
 ocrFile.onchange=()=>{const f=ocrFile.files[0];if(!f)return;ocrPreview.src=URL.createObjectURL(f);ocrPreview.style.display='block';ocrStatus.textContent='Image loaded, click Extract'};
-document.getElementById('ocrBtn').onclick=async()=>{const f=ocrFile.files[0];if(!f)return ocrStatus.textContent='Upload image first';const lang=document.getElementById('ocrLang').value;ocrStatus.textContent='⏳ Extracting... first time downloads data';ocrResult.value='';try{const {data:{text}}=await Tesseract.recognize(f,lang,{logger:m=>{if(m.status)ocrStatus.textContent=m.status+' '+Math.round((m.progress||0)*100)+'%'}});ocrResult.value=text;ocrStatus.textContent=`✅ Done ${text.length} chars`}catch(e){ocrStatus.textContent='❌ '+e.message}};
+document.getElementById('ocrBtn').onclick=async()=>{const f=ocrFile.files[0];if(!f)return ocrStatus.textContent='Upload image first';const lang=document.getElementById('ocrLang').value;ocrStatus.textContent='⏳ Extracting...';ocrResult.value='';try{const {data:{text}}=await Tesseract.recognize(f,lang,{logger:m=>{if(m.status)ocrStatus.textContent=m.status+' '+Math.round((m.progress||0)*100)+'%'}});ocrResult.value=text;ocrStatus.textContent=`✅ Done ${text.length} chars`}catch(e){ocrStatus.textContent='❌ '+e.message}};
 </script>
-</body>
-</html>
+</body></html>
